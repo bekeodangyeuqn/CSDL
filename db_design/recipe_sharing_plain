@@ -1,0 +1,468 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-05-20 02:20:27
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 214 (class 1259 OID 16411)
+-- Name: category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.category (
+    category_id bigint NOT NULL,
+    name character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.category OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16410)
+-- Name: category_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.category_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.category_category_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3360 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: category_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.category_category_id_seq OWNED BY public.category.category_id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 16404)
+-- Name: comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comment (
+    comment_id integer NOT NULL,
+    user_id integer NOT NULL,
+    recipe_id integer NOT NULL,
+    reply_to integer,
+    content character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.comment OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16403)
+-- Name: comment_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comment_comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comment_comment_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3361 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: comment_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.comment_comment_id_seq OWNED BY public.comment.comment_id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16416)
+-- Name: rate; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rate (
+    rate_id integer NOT NULL,
+    user_id integer NOT NULL,
+    recipe_id integer NOT NULL,
+    score integer NOT NULL
+);
+
+
+ALTER TABLE public.rate OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16415)
+-- Name: rate_rate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.rate_rate_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rate_rate_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3362 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: rate_rate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.rate_rate_id_seq OWNED BY public.rate.rate_id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16423)
+-- Name: recipe; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.recipe (
+    recipe_id integer NOT NULL,
+    user_id integer NOT NULL,
+    category_id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    description text NOT NULL,
+    rated integer NOT NULL,
+    "imgUrls" text[]
+);
+
+
+ALTER TABLE public.recipe OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16422)
+-- Name: recipe_recipe_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.recipe_recipe_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.recipe_recipe_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3363 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: recipe_recipe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.recipe_recipe_id_seq OWNED BY public.recipe.recipe_id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 16396)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    user_id integer NOT NULL,
+    username character varying(30) NOT NULL,
+    password character varying(30) NOT NULL,
+    is_admin boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16395)
+-- Name: user_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3364 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: user_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_user_id_seq OWNED BY public.users.user_id;
+
+
+--
+-- TOC entry 3187 (class 2604 OID 16414)
+-- Name: category category_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category ALTER COLUMN category_id SET DEFAULT nextval('public.category_category_id_seq'::regclass);
+
+
+--
+-- TOC entry 3186 (class 2604 OID 16407)
+-- Name: comment comment_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment ALTER COLUMN comment_id SET DEFAULT nextval('public.comment_comment_id_seq'::regclass);
+
+
+--
+-- TOC entry 3188 (class 2604 OID 16419)
+-- Name: rate rate_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rate ALTER COLUMN rate_id SET DEFAULT nextval('public.rate_rate_id_seq'::regclass);
+
+
+--
+-- TOC entry 3189 (class 2604 OID 16426)
+-- Name: recipe recipe_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipe ALTER COLUMN recipe_id SET DEFAULT nextval('public.recipe_recipe_id_seq'::regclass);
+
+
+--
+-- TOC entry 3184 (class 2604 OID 16399)
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.user_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3350 (class 0 OID 16411)
+-- Dependencies: 214
+-- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.category (category_id, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3348 (class 0 OID 16404)
+-- Dependencies: 212
+-- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comment (comment_id, user_id, recipe_id, reply_to, content) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3352 (class 0 OID 16416)
+-- Dependencies: 216
+-- Data for Name: rate; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.rate (rate_id, user_id, recipe_id, score) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3354 (class 0 OID 16423)
+-- Dependencies: 218
+-- Data for Name: recipe; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.recipe (recipe_id, user_id, category_id, name, description, rated, "imgUrls") FROM stdin;
+\.
+
+
+--
+-- TOC entry 3346 (class 0 OID 16396)
+-- Dependencies: 210
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (user_id, username, password, is_admin) FROM stdin;
+1	admin	admin	t
+2	admin	admin	t
+3	admin	admin	t
+\.
+
+
+--
+-- TOC entry 3365 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: category_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.category_category_id_seq', 1, false);
+
+
+--
+-- TOC entry 3366 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: comment_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comment_comment_id_seq', 1, false);
+
+
+--
+-- TOC entry 3367 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: rate_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.rate_rate_id_seq', 1, false);
+
+
+--
+-- TOC entry 3368 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: recipe_recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.recipe_recipe_id_seq', 1, false);
+
+
+--
+-- TOC entry 3369 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: user_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_user_id_seq', 3, true);
+
+
+--
+-- TOC entry 3195 (class 2606 OID 16437)
+-- Name: category category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category
+    ADD CONSTRAINT category_pkey PRIMARY KEY (category_id);
+
+
+--
+-- TOC entry 3193 (class 2606 OID 16409)
+-- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_pkey PRIMARY KEY (comment_id);
+
+
+--
+-- TOC entry 3197 (class 2606 OID 16421)
+-- Name: rate rate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rate
+    ADD CONSTRAINT rate_pkey PRIMARY KEY (rate_id);
+
+
+--
+-- TOC entry 3199 (class 2606 OID 16430)
+-- Name: recipe recipe_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipe
+    ADD CONSTRAINT recipe_pkey PRIMARY KEY (recipe_id);
+
+
+--
+-- TOC entry 3191 (class 2606 OID 16402)
+-- Name: users user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT user_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 3201 (class 2606 OID 16463)
+-- Name: comment comment_2_recipe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_2_recipe FOREIGN KEY (recipe_id) REFERENCES public.recipe(recipe_id) NOT VALID;
+
+
+--
+-- TOC entry 3200 (class 2606 OID 16458)
+-- Name: comment comment_2_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_2_user FOREIGN KEY (user_id) REFERENCES public.users(user_id) NOT VALID;
+
+
+--
+-- TOC entry 3203 (class 2606 OID 16453)
+-- Name: rate rate_2_recipe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rate
+    ADD CONSTRAINT rate_2_recipe FOREIGN KEY (recipe_id) REFERENCES public.recipe(recipe_id) NOT VALID;
+
+
+--
+-- TOC entry 3202 (class 2606 OID 16448)
+-- Name: rate rate_2_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rate
+    ADD CONSTRAINT rate_2_user FOREIGN KEY (user_id) REFERENCES public.users(user_id) NOT VALID;
+
+
+--
+-- TOC entry 3205 (class 2606 OID 16443)
+-- Name: recipe recipe_2_category; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipe
+    ADD CONSTRAINT recipe_2_category FOREIGN KEY (category_id) REFERENCES public.category(category_id) NOT VALID;
+
+
+--
+-- TOC entry 3204 (class 2606 OID 16438)
+-- Name: recipe recipe_2_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipe
+    ADD CONSTRAINT recipe_2_user FOREIGN KEY (user_id) REFERENCES public.users(user_id) NOT VALID;
+
+
+-- Completed on 2022-05-20 02:20:27
+
+--
+-- PostgreSQL database dump complete
+--
+
