@@ -12,12 +12,12 @@ function Seachbar() {
                 <input className='pl-10 pr-2 py-2 rounded hover:outline-none  hover:ring-1 hover:ring-sky-400  focus:outline-none focus:ring-1 focus:ring-sky-400'></input>
             </div>
             <div className='flex items-center'>
-                <label for="search-by" class="block mr-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-400">Search by</label>
-                <select id="search-by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:outline-none
+                <label htmlFor="search-by" className="block mr-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-400">Search by</label>
+                <select id="search-by" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:outline-none
                  hover:border-sky-500 focus:outline-none
                 focus:ring-sky-400 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-400">
-                    <option selected value="bookName">Book's name</option>
+                    <option selected value="bookName">Book&apos;s name</option>
                     <option value="gerne">Gerne</option>
                     <option value="year">Author</option>
                     <option value="publisherName">Publisher</option>
