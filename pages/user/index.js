@@ -12,6 +12,7 @@ function index() {
         <table class="table-auto w-full">
           <thead>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Username</th>
               <th>Gender</th>
@@ -23,6 +24,9 @@ function index() {
           </thead>
           <tbody>
             <tr>
+              <td className='py-2 text-center w-14 h-14'  >
+                <img src='https://i1.sndcdn.com/artworks-IMgb2nBVhF2LjT2Z-0Eb15A-t500x500.jpg'></img>
+              </td>
               <td className='text-center'>Hà Quốc Thắng</td>
               <td className='text-center'>thangws</td>
               <td className='text-center'>Male</td>
@@ -35,6 +39,9 @@ function index() {
               </td>
             </tr>
             <tr>
+              <td className='py-2 text-center w-14 h-14'  >
+                <img src='https://i1.sndcdn.com/artworks-IMgb2nBVhF2LjT2Z-0Eb15A-t500x500.jpg'></img>
+              </td>
               <td className='text-center'>Hà Quốc Thắng</td>
               <td className='text-center'>thangws</td>
               <td className='text-center'>Male</td>
@@ -47,6 +54,9 @@ function index() {
               </td>
             </tr>
             <tr>
+              <td className='py-2 text-center w-14 h-14'  >
+                <img src='https://i1.sndcdn.com/artworks-IMgb2nBVhF2LjT2Z-0Eb15A-t500x500.jpg'></img>
+              </td>
               <td className='text-center'>Hà Quốc Thắng</td>
               <td className='text-center'>thangws</td>
               <td className='text-center'>Male</td>

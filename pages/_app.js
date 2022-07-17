@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
       <Layout>
+        <div id="react-modals" />
         <Component {...pageProps} />
       </Layout>
     </UserProvider>

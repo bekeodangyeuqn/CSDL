@@ -12,6 +12,7 @@ function index() {
       <table class="table-auto w-full">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Image</th>
               <th>Book name</th>
               <th>Genre</th>
@@ -26,6 +27,7 @@ function index() {
           </thead>
           <tbody>
             <tr>
+              <td className='text-center'>1</td>
               <td className='py-2 text-center w-14 h-14'  >
                 <img src='https://cf.shopee.vn/file/7413a5737b1f8867950437c69921ad67'></img>
               </td>
@@ -43,6 +45,7 @@ function index() {
               </td>
             </tr>
             <tr>
+              <td className='text-center'>1</td>
               <td className='py-2 text-center w-14 h-14'  >
                 <img src='https://cf.shopee.vn/file/7413a5737b1f8867950437c69921ad67'></img>
               </td>
@@ -60,6 +63,7 @@ function index() {
               </td>
             </tr>
             <tr>
+              <td className='text-center'>1</td>
               <td className='py-2 text-center w-14 h-14'  >
                 <img src='https://cf.shopee.vn/file/7413a5737b1f8867950437c69921ad67'></img>
               </td>
@@ -77,6 +81,7 @@ function index() {
               </td>
             </tr>
             <tr>
+              <td className='text-center'>1</td>
               <td className='py-2 text-center w-14 h-14'  >
                 <img src='https://cf.shopee.vn/file/7413a5737b1f8867950437c69921ad67'></img>
               </td>
