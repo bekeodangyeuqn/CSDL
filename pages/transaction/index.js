@@ -47,7 +47,7 @@ function index() {
           </div>
         </div>
       </Modal>
-      <table class="table-auto w-full">
+      <table className="table-auto w-full">
         <thead>
           <tr>
             <th>ID</th>
