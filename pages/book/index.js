@@ -9,7 +9,7 @@ function index() {
       <div className="flex justify-center ">
         <BookSeachbar></BookSeachbar>
       </div>
-      <table class="table-auto w-full">
+      <table className="table-auto w-full">
         <thead>
           <tr>
             <th>ID</th>

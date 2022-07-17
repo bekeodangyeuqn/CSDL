@@ -17,7 +17,7 @@ const customStyles = {
 };
 
 function index() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function toggleModal() {
     setIsOpen(!modalIsOpen);
