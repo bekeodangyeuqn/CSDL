@@ -37,7 +37,7 @@ const navLinks = [
   },
 ];
 
-function index() {
+function Index() {
   const router = useRouter();
   console.log(router);
   return (
@@ -78,4 +78,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
