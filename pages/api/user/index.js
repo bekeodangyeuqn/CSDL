@@ -14,12 +14,13 @@ export default async function userHandler(req, res) {
         email: body.email,
         address: body.address,
         imgUrl: body.imgUrl,
+        password: body.password
     }
 
     switch (method) {
         case 'GET':
             try {
-                // const query = 'SELECT user_id, first_name, last_name, dob, gender, email, address, borrow_times, img_url, tel FROM users;' duh...
+                // const query = 'SELECT user_id, first_name, last_name, dob, gender, email, address, borrow_times, img_url, tel FROM users;' duh... actually dont send the password :)
                 let query = 'SELECT * FROM users;'
                 let result = await conn.query(query)
                 res.status(200).json(result.rows)
@@ -30,7 +31,7 @@ export default async function userHandler(req, res) {
             break
         case 'POST':
             try {
-                let query = 'INSERT INTO users(first_name, last_name, dob, gender, tel, email, address, img_url) VALUES($1, $2, $3, $4, $5, $6, $7, $8)'
+                let query = 'INSERT INTO users(first_name, last_name, dob, gender, tel, email, address, img_url, password) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)'
                 let values = [
                     userData.firstName,
                     userData.lastName,
@@ -39,7 +40,8 @@ export default async function userHandler(req, res) {
                     userData.tel,
                     userData.email,
                     userData.address,
-                    userData.imgUrl
+                    userData.imgUrl,
+                    userData.password
                 ]
                 let result = await conn.query(
                     query,

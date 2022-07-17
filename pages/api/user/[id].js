@@ -39,6 +39,7 @@ export default async function userHandler(req, res) {
             let isExisted = await conn.query(query, values)
             if (isExisted.rows[0]) {
                 try {
+                    //Get all attributes except password and put into form in FE
                     let query = 'UPDATE users SET first_name = $1, last_name = $2, dob = $3, gender = $4, tel = $5, email = $6, address = $7, img_url = $8 WHERE user_id = $9'
                     let values = [
                         userData.firstName,
@@ -55,7 +56,7 @@ export default async function userHandler(req, res) {
                     res.status(200).json(`User with id ${id} has been updated!`)
                 } catch (error) {
                     console.log(error)
-                    res.status(500).json("Something went wrong, try again! 1")
+                    res.status(500).json("Something went wrong, try again!")
                 }
             } else {
                 res.status(400).json(`User with id ${id} cannot be found!`)
