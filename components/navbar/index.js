@@ -4,8 +4,6 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import styles from "../../styles/NavBar.module.css";
 
-import Seachbar from "./Seachbar";
-
 const navLinks = [
   {
     url: "/",
@@ -75,9 +73,6 @@ function index() {
             </div>
           </Link>
         ))}
-      </div>
-      <div className="flex justify-center ">
-        <Seachbar></Seachbar>
       </div>
     </>
   );

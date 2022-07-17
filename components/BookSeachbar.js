@@ -36,7 +36,9 @@ function Seachbar() {
                 focus:ring-sky-400 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-400"
         >
-          <option defaultValue="bookName">Book&apos;s name</option>
+          <option defaultValue value="bookName">
+            Book&apos;s name
+          </option>
           <option value="gerne">Gerne</option>
           <option value="year">Author</option>
           <option value="publisherName">Publisher</option>
