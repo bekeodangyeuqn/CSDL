@@ -16,7 +16,7 @@ const customStyles = {
   },
 };
 
-function index() {
+function Transaction() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function toggleModal() {
@@ -94,4 +94,4 @@ function index() {
   );
 }
 
-export default index;
+export default Transaction;

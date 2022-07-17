@@ -2,7 +2,7 @@ import React from "react";
 
 import BookSeachbar from "../../components/BookSeachbar";
 
-function index() {
+function Book() {
   return (
     <div className="px-8">
       <p className="text-xl font-extrabold">Books</p>
@@ -120,4 +120,4 @@ function index() {
   );
 }
 
-export default index;
+export default Book;
