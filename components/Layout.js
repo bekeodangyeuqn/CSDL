@@ -13,7 +13,7 @@ export default function Layout({ children }) {
                 <Navbar />
             </div>
 
-            <div className='pt-14 bg-slate-100'>
+            <div className='pt-14 min-h-screen bg-slate-100'>
                 {children}
             </div>
         </div>

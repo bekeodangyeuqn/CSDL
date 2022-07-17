@@ -8,7 +8,7 @@ export default function Home() {
       <div className='container mx-auto px-8'>
         <p className='text-xl my-4 ml-2'>Hello, {user ? user : 'Guess'}</p>
         <div className="flex flex-wrap">
-          <div className="basis-1/2 p-2">
+          <div className="basis-1/2 p-2 rounded bg-green-100">
             <p className="text-center">Top Book</p>
             <div>
               <div className="flex justify-between">
@@ -33,7 +33,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="basis-1/2 p-2">
+          <div className="basis-1/2 p-2 rounded bg-orange-100">
             <p className="text-center">Top User</p>
             <div>
               <div className="flex justify-between">
@@ -59,7 +59,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="basis-1/2 p-2">
+          <div className="basis-1/2 p-2 rounded bg-sky-100">
             <p>Thông tin về thư viện</p>
             <div>
               <p>
@@ -70,7 +70,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="basis-1/2 p-2">
+          <div className="basis-1/2 p-2 rounded bg-violet-100">
             <p>Thông tin về giao dịch mượn sách</p>
             <div>
               <p>
