@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function index() {
-  return (
-    <div>Transaction page</div>
-  )
+  return <div className="container">Transaction page</div>;
 }
 
-export default index
+export default index;
