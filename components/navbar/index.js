@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 
-import Seachbar from './Seachbar'
 
 const navLinks = [
     {
@@ -42,9 +41,6 @@ function index() {
                         </Link>
                     ))
                 }
-            </div>
-            <div className='flex justify-center '>
-                <Seachbar></Seachbar>
             </div>
         </>
     )

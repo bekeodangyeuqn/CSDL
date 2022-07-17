@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Seachbar() {
+function UserSeachbar() {
     return (
         <div className='flex space-x-2 items-center'>
             <div className='relative mr-6'>
@@ -17,16 +17,14 @@ function Seachbar() {
                  hover:border-sky-500 focus:outline-none
                 focus:ring-sky-400 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-400">
-                    <option selected value="bookName">Book&apos;s name</option>
-                    <option value="gerne">Gerne</option>
-                    <option value="year">Author</option>
-                    <option value="publisherName">Publisher</option>
-                    <option value="year">Publish year</option>
+                    <option defaultValue value="name">Name</option>
+                    <option value="userId">User ID</option>
+                    <option value="address">Address</option>
+                    <option value="phone">Phone</option>
                 </select>
             </div>
         </div>
-
     )
 }
 
-export default Seachbar
+export default UserSeachbar
