@@ -24,7 +24,7 @@ function index() {
   }
   return (
     <div className='px-8'>
-      <p className='text-xl font-extrabold'>Books</p>
+      <p className='text-xl font-extrabold'>Transactions</p>
       <div className='flex justify-center '>
         <TransactionSearchBar></TransactionSearchBar>
       </div>
