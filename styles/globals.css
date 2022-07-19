@@ -15,25 +15,25 @@ a {
   box-sizing: border-box;
 }
 
-.button {
-  background-color: aqua;
-  padding: 5px 5px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-  font-size: 16px;
-  display: inline-block;
-}
+  /* .button {
+    background-color: aqua;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    font-size: 16px;
+    display: inline-block;
+  }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 0.5rem;
-  height: 100vh;
-}
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    height: 100vh;
+  } */
 
 @tailwind base;
 @tailwind components;
