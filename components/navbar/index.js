@@ -41,7 +41,6 @@ function Index() {
   const router = useRouter();
   console.log(router);
   return (
-    <>
       <div className="flex space-x-3 items-center justify-center ">
         {navLinks.map((item, index) => (
           <Link href={item.url} key={index}>
@@ -74,7 +73,6 @@ function Index() {
           </Link>
         ))}
       </div>
-    </>
   );
 }
 
