@@ -1,11 +1,22 @@
-import { useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { userContext } from "../contexts/userProvider"
 
 export default function Home() {
   const { user } = useContext(userContext)
+
+  const [userName, setUsername] = useState('Guess');
+
+  useEffect(() => {
+    user ? setUsername(`${user.first_name} ${user.last_name}`) : 'Guess'
+  },[user])
+
+  useEffect(() => {
+
+  }, [])
+
   return (
     <div className='container mx-auto px-8'>
-      <p className='text-xl my-4 ml-2'>Hello, {user ? `${user.first_name} ${user.last_name}` : 'Guess'}</p>
+      <p className='text-xl my-4 ml-2'>Hello, {userName}</p>
       <div className="flex flex-wrap">
         <div className="basis-1/2 p-2 rounded bg-green-100">
           <p className="text-center">Top Book</p>
