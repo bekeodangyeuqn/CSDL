@@ -7,7 +7,7 @@ export default function Home() {
   const [userName, setUsername] = useState('Guess');
 
   useEffect(() => {
-    user ? setUsername(`${user.first_name} ${user.last_name}`) : 'Guess'
+    user && user !== null ? setUsername(`${user.first_name} ${user.last_name}`) : 'Guess'
   },[user])
 
   useEffect(() => {

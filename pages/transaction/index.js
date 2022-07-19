@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import TransactionSearchBar from "../../components/TransactionSearchBar";
 
-Modal.setAppElement("#react-modals");
+Modal.setAppElement("#__next");
 
 const customStyles = {
   content: {

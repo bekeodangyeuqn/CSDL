@@ -17,7 +17,6 @@ export default function Layout({ children }) {
       <div className="fixed w-full p-6 bg-slate-100">
         <Navbar />
       </div>
-
       <div className="pt-28">{children}</div>
     </>
   );

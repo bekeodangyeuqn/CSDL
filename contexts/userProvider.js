@@ -2,32 +2,24 @@ import { useState, useEffect, createContext } from 'react';
 
 export const userContext = createContext();
 
-function setLocalStorage(key, value) {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-        console.log(e)
-    }
-  }
-  
-  function getLocalStorage(key) {
-    try {
-      const value = window.localStorage.getItem(key);
-      return value ? JSON.parse(value) : initialValue;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
 const UserProvider = (props) => {
-    const [user, setUser] = useState(() => getLocalStorage("user"));
+    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
 
     useEffect(() => {
-        setLocalStorage("user", user);
-      }, [user]);
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            let user = JSON.parse(savedUser);
+            setUser(user);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("user", JSON.stringify(user));
+        // console.log(JSON.parse(localStorage.getItem('user')))
+    }, [user]);
 
     return (
-        <userContext.Provider value={{user, setUser}}>
+        <userContext.Provider value={{ user, setUser }}>
             {props.children}
         </userContext.Provider>
     )
