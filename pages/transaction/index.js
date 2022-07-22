@@ -68,6 +68,7 @@ function Transaction() {
             <td className="text-center">thangwsSTAFF</td>
             <td className="text-center">11/2/2022</td>
             <td className="text-center">11/4/2022</td>
+            {/* on going: 'ongoing', late: 'late', complete: 'complete' */}
             <td className="text-center">
               <span className="text-yellow-500">On going</span>/
               <span className="text-orange-500">Late</span>/
