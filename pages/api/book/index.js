@@ -6,14 +6,14 @@ export default async function bookHandler(req, res) {
     const bookData = {
         bookId: body.bookId,
         name: body.name,
-        publisher: body.publisher,
+        publisherId: body.publisherId,
         publishDate: body.publishDate,
         importDate: body.importDate,
         quantity: body.quantity,
         imgUrls: body.imgUrls,
         borrowedTimes: body.borrowedTimes,
-        genresList: body.genresList,
-        genresList: body.genresList
+        genreIds: body.genreIds,
+        authorIds: body.authorIds
     }
 
     switch (method) {
@@ -59,11 +59,12 @@ export default async function bookHandler(req, res) {
                     bookData.genreIds,
                     bookData.authorIds
                 ]
-                let result = await conn.query(
-                    query,
-                    values
-                );
-                console.log("Result: ", result)
+                // let result = await conn.query(
+                //     query,
+                //     values
+                // );
+                // console.log("Result: ", result)
+                console.log(values)
                 res.status(200).json(`Book ${bookData.name} has been created!`)
             }
             catch (error) {

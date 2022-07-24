@@ -20,7 +20,7 @@ function PublisherSelector( { setPublisherId } ) {
 
     const handleChange = (e) => {
         setSelected(e.target.value)
-        setPublisherId(e.target.value)
+        setPublisherId(Number(e.target.value))
     }
 
     return (

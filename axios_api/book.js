@@ -20,9 +20,9 @@ export const getOneBookById = async (id) => {
     }
 }
 
-export const createOneBook = async () => {
+export const createOneBook = async (book) => {
     try {
-        const res = await axios.post(url)
+        const res = await axios.post(url, book)
         return res.data
     } catch (error) {
         return error.response.data
