@@ -11,7 +11,7 @@ export default async function genreHandler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                let query = 'SELECT * FROM genres;'
+                let query = 'SELECT genre_id as "genreId", name FROM genres;'
                 let result = await conn.query(query)
                 res.status(200).json(result.rows)
             } catch (error) {

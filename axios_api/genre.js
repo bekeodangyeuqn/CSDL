@@ -20,10 +20,9 @@ export const getOneGenreById = async (id) => {
     }
 }
 
-export const createOneGenre = async () => {
+export const createOneGenre = async (genre) => {
     try {
-        const res = await axios.post(url)
-        return res.data
+        const res = await axios.post(url, genre)
     } catch (error) {
         return error.response.data
     }
