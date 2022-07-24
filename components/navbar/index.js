@@ -123,6 +123,7 @@ function Index() {
                 "hover:cursor-pointer",
                 router.pathname == '/logout' && styles.active
               )}
+              onClick={()=> {setUser(null); router.push('/')}}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
