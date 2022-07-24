@@ -20,9 +20,9 @@ export const getOneAuthorById = async (id) => {
     }
 }
 
-export const createOneAuthor = async () => {
+export const createOneAuthor = async (author) => {
     try {
-        const res = await axios.post(url)
+        const res = await axios.post(url, author)
         return res.data
     } catch (error) {
         return error.response.data

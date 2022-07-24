@@ -1,48 +1,51 @@
 import React, { useState, useEffect } from 'react'
 
-import { getAllGenres, createOneGenre } from '../axios_api/genre'
+import { getAllAuthors, createOneAuthor } from '../axios_api/author'
 
-function GenreSelector({ genreIds, setGenreIds }) {
+function AuthorSelector({ authorIds, setAuthorIds }) {
     const [selected, setSelected] = useState([])
-    const [genres, setGenres] = useState()
-    const [input, setInput] = useState('')
+    const [authors, setAuthors] = useState()
+    const [name, setName] = useState('')
+    const [nationality, setNationality] = useState('')
     const [hidden, setHidden] = useState(true)
     const [needReRender, setNeedReRender] = useState(false)
 
     useEffect(() => {
-        const getGenres = async () => {
-            const genresData = await getAllGenres()
-            setGenres(genresData)
+        const getAuthors = async () => {
+            const authorsData = await getAllAuthors()
+            setAuthors(authorsData)
         }
         try {
-            getGenres()
+            getAuthors()
         } catch (error) {
             console.log(error)
         }
-    }, [needReRender])
+    },[needReRender])
 
-    const handleSelect = (genre) => {
-        if (!selected.some(item => item.name === genre.name)) {
-            setSelected([...selected, genre])
-            setGenreIds([...genreIds, genre.genreId])
+    const handleSelect = (author) => {
+        if (!selected.some(item => item.name === author.name)) {
+            setSelected([...selected, author])
+            setAuthorIds([...authorIds, author.authorId])
         }
     }
 
     const handleClear = () => {
         setSelected([])
-        setGenreIds([])
+        setAuthorIds([])
     }
 
     const handleCreate = () => {
-        const createGenre = async () => {
-            const result = await createOneGenre({
-                name: input
+        const createAuthor = async () => {
+            const result = createOneAuthor({
+                name: name,
+                nationality: nationality
             })
-        }
+        } 
         try {
-            createGenre()
-            setInput('')
-            setNeedReRender(!needReRender)
+            createAuthor()
+            setName('')
+            setNationality('')
+            setNeedReRender('')
         } catch (error) {
             console.log(error)
         }
@@ -50,7 +53,7 @@ function GenreSelector({ genreIds, setGenreIds }) {
 
     return (
         <div className='relative bg-white '>
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Genre</label>
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Author</label>
             <div className='w-full flex flex-wrap'>
                 <div className='flex'>
                     {selected.length > 0 &&
@@ -63,15 +66,22 @@ function GenreSelector({ genreIds, setGenreIds }) {
                             </button>
                         </>
                     }
-
                 </div>
 
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onFocus={() => setHidden(false)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 " required />
+                <div className='flex space-x-1 w-full'>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        onFocus={() => setHidden(false)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/5 p-2.5" required placeholder='Name'/>
+                    <input
+                        type="text"
+                        value={nationality}
+                        onChange={(e) => setNationality(e.target.value)}
+                        onFocus={() => setHidden(false)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-2/5 p-2.5 " required placeholder='Nationality'/>
+                </div>
             </div>
 
             {
@@ -83,23 +93,24 @@ function GenreSelector({ genreIds, setGenreIds }) {
                         </svg>
                     </div>
 
-                    {input &&
+                    {name &&
                         <div
                             onClick={() => handleCreate()}
                             className='flex items-center bg-white border border-gray-300 text-gray-900 text-sm rounded-sm w-full p-1.5 cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Create this new genre: &nbsp;
-                            <span className='font-bold'>{input}</span>
+                            Create this new author: &nbsp;
+                            <span className='font-bold'>{name}&nbsp;</span>
+                            <span className='font-bold'>{nationality ? ` - ${nationality}` : ''}</span>
                         </div>}
-                    {genres && genres.map((genre, index) => (
+                    {authors && authors.map((author, index) => (
                         <div
                             key={index}
-                            onClick={() => handleSelect(genre)}
+                            onClick={() => handleSelect(author)}
                             onFocus={() => setHidden(false)}
                             className='text-sm w-full p-1 cursor-pointer border-b'
-                        >{genre.name}</div>
+                        >{author.name}</div>
                     ))}
                     <div className='bg-white flex justify-center'>
                         <button className="px-2 mx-1 my-1 text-sm rounded-xl bg-gray-400" onClick={() => setHidden(true)}>
@@ -113,4 +124,4 @@ function GenreSelector({ genreIds, setGenreIds }) {
     )
 }
 
-export default GenreSelector
+export default AuthorSelector
