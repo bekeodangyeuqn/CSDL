@@ -14,7 +14,7 @@ export default async function PublisherHandler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                let query = 'SELECT * FROM publishers;'
+                let query = 'SELECT publisher_id as "publisherId", name, address, email, tel FROM publishers;'
                 let result = await conn.query(query)
                 res.status(200).json(result.rows)
             } catch (error) {
