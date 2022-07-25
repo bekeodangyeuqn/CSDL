@@ -1,6 +1,11 @@
-.userlist{
+.userlist {
     gap: 30px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+
+.user-form input {
+    outline: none;
+    height: 28px;
 }

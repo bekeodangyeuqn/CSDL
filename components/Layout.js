@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Navbar from "./navbar";
 import styles from "../styles/Home.module.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import clsx from "clsx";
 export default function Layout({ children }) {
   return (
@@ -18,6 +20,7 @@ export default function Layout({ children }) {
         <Navbar />
       </div>
       <div className="pt-28">{children}</div>
+      <ToastContainer />
     </>
   );
 }

@@ -1,9 +1,9 @@
 import Link from "next/link";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
-import {userContext} from "../../contexts/userProvider";
+import { userContext } from "../../contexts/userProvider";
 import styles from "../../styles/NavBar.module.css";
 
 const navLinks = [
@@ -46,42 +46,42 @@ function Index() {
   const router = useRouter();
 
   const { user, setUser } = useContext(userContext);
-
+  console.log({ user });
   return (
-      <div className="flex space-x-3 items-center justify-center ">
-        {navLinks.map((item, index) => (
-          <Link href={item.url} key={index}>
-            <div
-              className={clsx(
-                "relative",
-                "group",
-                "hover:cursor-pointer",
-                router.pathname == item.url && styles.active
-              )}
+    <div className="flex space-x-3 items-center justify-center ">
+      {navLinks.map((item, index) => (
+        <Link href={item.url} key={index}>
+          <div
+            className={clsx(
+              "relative",
+              "group",
+              "hover:cursor-pointer",
+              router.pathname == item.url && styles.active
+            )}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d={item.icon}
-                />
-              </svg>
-              <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block">
-                {item.name}
-              </p>
-            </div>
-          </Link>
-        ))}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d={item.icon}
+              />
+            </svg>
+            <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block">
+              {item.name}
+            </p>
+          </div>
+        </Link>
+      ))}
 
-        { !user ? (
-          <>
+      {!user ? (
+        <>
           {authLink.map((item, index) => (
             <Link href={item.url} key={index}>
               <div
@@ -112,40 +112,40 @@ function Index() {
               </div>
             </Link>
           ))}
-          </>
-        ) : (
-          // onClick={()=> {setUser(null); router.push('/')}}
-          <button href='/logout'>
-            <div
-              className={clsx(
-                "relative",
-                "group",
-                "hover:cursor-pointer",
-                router.pathname == '/logout' && styles.active
-              )}
+        </>
+      ) : (
+        // onClick={()=> {setUser(null); router.push('/')}}
+        <button href='/logout'>
+          <div
+            className={clsx(
+              "relative",
+              "group",
+              "hover:cursor-pointer",
+              router.pathname == '/logout' && styles.active
+            )}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
-              <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block">
-                Logout
-              </p>
-            </div>
-          </button>
-        )}
-        
-      </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+            <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block">
+              Logout
+            </p>
+          </div>
+        </button>
+      )}
+
+    </div>
   );
 }
 

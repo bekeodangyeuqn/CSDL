@@ -7,7 +7,7 @@ const login = async (loginData) => {
         const res = await axios.post(url, loginData)
         return res.data
     } catch (error) {
-        return error.response.data
+        console.log(error);
     }
 }
 
