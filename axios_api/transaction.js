@@ -20,13 +20,8 @@ export const getOneTransactionById = async (id) => {
     }
 }
 
-export const createOneTransaction = async () => {
-    try {
-        const res = await axios.post(url)
-        return res.data
-    } catch (error) {
-        return error.response.data
-    }
+export const createOneTransaction = async (transaction) => {
+    return await axios.post(url, transaction)
 }
 
 export const editOneTransactionById = async (id) => {

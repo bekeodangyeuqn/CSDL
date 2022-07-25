@@ -46,7 +46,6 @@ function Index() {
   const router = useRouter();
 
   const { user, setUser } = useContext(userContext);
-  console.log({ user });
   return (
     <div className="flex space-x-3 items-center justify-center ">
       {navLinks.map((item, index) => (
@@ -115,7 +114,7 @@ function Index() {
         </>
       ) : (
         // onClick={()=> {setUser(null); router.push('/')}}
-        <button href='/logout'>
+        <button href='/logout' onClick={()=> {setUser(null); router.push('/')}}>
           <div
             className={clsx(
               "relative",
@@ -138,7 +137,7 @@ function Index() {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block" onClick={()=> {setUser(null); router.push('/')}}>
+            <p className="absolute hidden z-10 drop-shadow-sm text-xl font-bold pointer-events-none group-hover:block">
               Logout
             </p>
           </div>
