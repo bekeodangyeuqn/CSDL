@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {toast} from 'react-toastify'
 
 import formatDate from '../../utils/date';
 
@@ -18,8 +19,6 @@ function Create() {
     const [quantity, setQuantity] = useState(0)
     const [genreIds, setGenreIds] = useState([])
     const [authorIds, setAuthorIds] = useState([])
-
-    const [error, setError] = useState()
 
     const router = useRouter();
 
@@ -38,31 +37,16 @@ function Create() {
                 genreIds,
                 authorIds
             }
-
-            
             const result = await createOneBook(bookData)
-            if (result != 'Something went wrong, try again!') router.push('/book')
+            toast.success(result)
         } catch (error) {
-            setError(error)
+            console.log(error)
         }
     }
 
     return (
         <div className='container mx-auto'>
-            <div className='text-center text-xl bold' onClick={() => {
-                const formatedPublishDate = formatDate(publishDate);
-                const formatedImportDate = formatDate(importDate);
-                const bookData = {
-                    name,
-                    publisherId,
-                    formatedPublishDate,
-                    formatedImportDate,
-                    quantity,
-                    genreIds,
-                    authorIds
-                }
-                console.log(bookData)
-            }}>Create New Book</div>
+            <div className='text-center text-xl bold'>Create New Book</div>
             <div className="grid gap-6 mb-6 md:grid-cols-2">
                 <div className='col-span-full'>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name</label>
@@ -75,19 +59,31 @@ function Create() {
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Publish date</label>
                     <DatePicker
-                        dateFormat="yyyy/MM/dd"
                         selected={formattedPublishDate}
                         onChange={(date) => setFormattedPublishDate(date)}
+                        dateFromat='YYYY-MM-dd'
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        placeholder="Date of birth"
+                        required
                     />
                 </div>
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Import date</label>
                     <DatePicker
-                        dateFormat="yyyy/MM/dd"
                         selected={formattedImportDate}
                         onChange={(date) => setFormattedImportDate(date)}
+                        dateFromat='YYYY-MM-dd'
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        placeholder="Date of birth"
+                        required
                     />
                 </div>
                 <div>

@@ -59,11 +59,11 @@ export default async function bookHandler(req, res) {
                     bookData.genreIds,
                     bookData.authorIds
                 ]
-                // let result = await conn.query(
-                //     query,
-                //     values
-                // );
-                // console.log("Result: ", result)
+                let result = await conn.query(
+                    query,
+                    values
+                );
+                console.log("Result: ", result)
                 console.log(values)
                 res.status(200).json(`Book ${bookData.name} has been created!`)
             }

@@ -27,8 +27,8 @@ function Edit() {
         const getBookData = async () => {
             if (!id) {
                 return;
-              }
-            
+            }
+
             const rs = await getOneBookById(id)
             const genresIdsList = rs.data[0].genresList.reduce((list, curr) => {
                 list = [...list, curr.genre_id]
@@ -51,7 +51,7 @@ function Edit() {
         } catch (e) {
             console.log(e)
         }
-    },[id])
+    }, [id])
 
     const handleEdit = async () => {
 
@@ -68,7 +68,7 @@ function Edit() {
                 authorIds
             }
             const result = await editOneBookById(id, bookData)
-            if(result.status === 200) {
+            if (result.status === 200) {
                 toast.success(`Update book ${id} successfully!`)
             } else {
                 toast.error(`Update book ${id} failed!`)
@@ -81,7 +81,7 @@ function Edit() {
 
     if (!id) {
         return 'loading...';
-      }
+    }
 
     return (
         <div className='container mx-auto'>
@@ -98,10 +98,16 @@ function Edit() {
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Publish date</label>
                     <DatePicker
-                        dateFormat="yyyy/MM/dd"
                         selected={publishDate}
                         onChange={(date) => setPublishDate(date)}
+                        dateFromat='YYYY-MM-dd'
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        placeholder="Date of birth"
+                        required
                     />
                 </div>
                 <div>
@@ -110,13 +116,20 @@ function Edit() {
                         dateFormat="yyyy/MM/dd"
                         selected={importDate}
                         onChange={(date) => setImportDate(date)}
+                        dateFromat='YYYY-MM-dd'
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        placeholder="Date of birth"
+                        required
                     />
                 </div>
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Quantity</label>
                     <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-                    value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                        value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                 </div>
                 <div>
                     <GenreSelector genreIds={genreIds} setGenreIds={setGenreIds} />
