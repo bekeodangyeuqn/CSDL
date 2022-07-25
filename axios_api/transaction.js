@@ -1,22 +1,8 @@
-import axios from './axios';
+import axios from "axios";
 
-export const getAllUser = () => {
-    return axios.get('/api/user');
-}
-export const deleteUser = (id) => {
-    return axios.delete(`/api/user/${id}`);
-}
+const url = 'http://localhost:3000/api/transaction'
 
-export const getUser = (id) => {
-    return axios.get(`/api/user/${id}`);
-}
-
-export const updateUser = (user) => {
-    return axios.patch(`/api/user/${user.userId}`, user);
-}
-const url = 'http://localhost:3000/api/user'
-
-export const getAllUsers = async () => {
+export const getAllTransactions = async () => {
     try {
         const res = await axios.get(url)
         return res.data
@@ -25,7 +11,7 @@ export const getAllUsers = async () => {
     }
 }
 
-export const getOneUserById = async (id) => {
+export const getOneTransactionById = async (id) => {
     try {
         const res = await axios.get(url + `${id}`, id)
         return res.data
@@ -34,7 +20,7 @@ export const getOneUserById = async (id) => {
     }
 }
 
-export const createOneUser = async () => {
+export const createOneTransaction = async () => {
     try {
         const res = await axios.post(url)
         return res.data
@@ -43,7 +29,7 @@ export const createOneUser = async () => {
     }
 }
 
-export const editOneUserById = async (id) => {
+export const editOneTransactionById = async (id) => {
     try {
         const res = await axios.patch(url + `${id}`, id)
         return res.data
@@ -51,7 +37,7 @@ export const editOneUserById = async (id) => {
         return error.response.data
     }
 }
-export const deleteOneUserById = async (id) => {
+export const deleteOneTransactionById = async (id) => {
     try {
         const res = await axios.delete(url + `${id}`, id)
         return res.data
