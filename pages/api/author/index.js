@@ -12,7 +12,7 @@ export default async function authorHandler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                let query = 'SELECT * FROM authors;'
+                let query = 'SELECT author_id as "authorId", name, nationality FROM authors;'
                 let result = await conn.query(query)
                 res.status(200).json(result.rows)
             } catch (error) {
