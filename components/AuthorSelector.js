@@ -20,7 +20,17 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
         } catch (error) {
             console.log(error)
         }
-    },[needReRender])
+    },[needReRender, authorIds])
+
+    useEffect(() => {
+        if (authorIds) {
+            const list = authorIds.reduce((list, id) => {
+                const index = authors.findIndex((author) => author.authorId === id)
+                return [...list, authors[index]]
+            }, [])
+            setSelected(list)
+        }
+    }, [authorIds])
 
     const handleSelect = (author) => {
         if (!selected.some(item => item.name === author.name)) {

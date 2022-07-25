@@ -19,7 +19,17 @@ function GenreSelector({ genreIds, setGenreIds }) {
         } catch (error) {
             console.log(error)
         }
-    }, [needReRender])
+    }, [needReRender, genreIds])
+
+    useEffect(() => {
+        if (genreIds) {
+            const list = genreIds.reduce((list, id) => {
+                const index = genres.findIndex((genre) => genre.genreId === id)
+                return [...list, genres[index]]
+            }, [])
+            setSelected(list)
+        }
+    }, [genreIds])
 
     const handleSelect = (genre) => {
         if (!selected.some(item => item.name === genre.name)) {
@@ -71,6 +81,7 @@ function GenreSelector({ genreIds, setGenreIds }) {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onFocus={() => setHidden(false)}
+                    placeholder='Genre'
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 " required />
             </div>
 
