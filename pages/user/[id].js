@@ -22,7 +22,6 @@ export const getStaticProps = async (context) => {
   };
 };
 const Detail = ({ user }) => {
-  console.log(user);
   return (
     <div className="container">
       <img

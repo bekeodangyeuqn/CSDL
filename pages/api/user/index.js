@@ -22,7 +22,7 @@ export default async function userHandler(req, res) {
             try {
                 // const query = 'SELECT user_id, first_name, last_name, dob, gender, email, address, borrow_times, img_url, tel FROM users;' duh... actually dont send the password :)
                 let query = 'SELECT * FROM users;'
-                let result = await conn.query(query)
+                let result = await conn.query(query);
                 res.status(200).json(result.rows)
             } catch (error) {
                 console.log(error)
