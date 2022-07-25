@@ -10,12 +10,13 @@ import BookItem from "../../components/BookItem";
 function Book() {
 
   const [books, setBooks] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     const getBooks = async () => {
-      const data = await getAllBooks()
-      console.log(data)
-      setBooks(data);
+      const result = await getAllBooks()
+      console.log(result.data)
+      setBooks(result.data);
     }
 
     try {
@@ -23,7 +24,7 @@ function Book() {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, [trigger])
 
   return (
     <div className="px-8">
@@ -56,7 +57,7 @@ function Book() {
         </thead>
         <tbody>
           {books.map((book) => (
-            <BookItem book={book} key={book.bookId}></BookItem>
+            <BookItem book={book} key={book.bookId} trigger={trigger} setTrigger={setTrigger}></BookItem>
           ))}
         </tbody>
       </table>

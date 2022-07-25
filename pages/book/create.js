@@ -38,7 +38,13 @@ function Create() {
                 authorIds
             }
             const result = await createOneBook(bookData)
-            toast.success(result)
+            if (result.status === 200) {
+                toast.success(result.data)
+                router.push('/book')
+            } else {
+                toast.error(result.response.data)
+            }
+            console.log(result)
         } catch (error) {
             console.log(error)
         }
