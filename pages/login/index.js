@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useRouter } from 'next/router'
 
-import {login} from '../../axios_api/login'
+import { login } from '../../axios_api/login'
 import { userContext } from "../../contexts/userProvider";
 import styles from "../../styles/Register.module.css";
 
@@ -32,10 +32,18 @@ function LoginForm() {
   const handleSubmit = async () => {
     try {
       const result = await login({ email, password, role })
-      setUser(result)
-      router.push('/')
+      if (result.status === 200) {
+        console.log(result)
+        setUser(result.data)
+        router.push('/')
+      } 
+      else {
+        alert(result.response.data)
+        console.log(result)
+      }
     } catch (error) {
       console.log(error)
+      alert(error)
     }
   };
 
