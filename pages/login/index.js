@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { useRouter } from 'next/router'
-import {toast} from 'react-toastify'
-
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { login } from '../../axios_api/login'
 import { userContext } from "../../contexts/userProvider";
 import styles from "../../styles/Register.module.css";

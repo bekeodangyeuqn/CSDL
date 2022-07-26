@@ -22,11 +22,19 @@ export default async function userHandler(req, res) {
             try {
                 // const query = 'SELECT user_id, first_name, last_name, dob, gender, email, address, borrow_times, img_url, tel FROM users;' duh... actually dont send the password :)
                 let query = 'SELECT * FROM users;'
+                if (req.query.firstName) {
+                    query = `SELECT * FROM users  WHERE first_name LIKE '${req.query.firstName}%';`
+                } else if (req.query.address) {
+                    query = `SELECT * FROM users  WHERE address LIKE '${req.query.address}%';`
+                } else if (req.query.tel) {
+                    query = `SELECT * FROM users  WHERE tel LIKE '${req.query.tel}%';`
+                }
+
                 let result = await conn.query(query);
                 res.status(200).json(result.rows)
             } catch (error) {
                 console.log(error)
-                res.status(500).res.status(500).json("Something went wrong, try again!")
+                res.status(500).json("Something went wrong, try again!")
             }
             break
         case 'POST':

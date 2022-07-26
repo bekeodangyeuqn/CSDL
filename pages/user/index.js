@@ -12,7 +12,6 @@ function User({ users }) {
   const queryAllAccount = async () => {
     try {
       const users = await getAllUser();
-      console.log({ users });
       setUserList(users);
 
     } catch (error) {
@@ -59,11 +58,15 @@ function User({ users }) {
       onConfirm: () => onDeleteUser(id),
     })
   }
+
+  const onSearch = (data) => {
+    setUserList(data)
+  }
   return (
     <div className="px-8">
       <p className="text-xl font-extrabold">Users</p>
       <div className="flex justify-center ">
-        <UserSearachBar></UserSearachBar>
+        <UserSearachBar onSearch={onSearch}></UserSearachBar>
       </div>
       <div>
         <table className="table-auto w-full">

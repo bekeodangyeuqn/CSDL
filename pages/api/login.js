@@ -16,6 +16,7 @@ export default async function loginHandler(req, res) {
         case 'POST':
             try {
                 var result = {}
+                console.log(loginData)
                 if (loginData.role === 'user') {
                     let query = 'SELECT * FROM users WHERE email = $1'
                     let values = [loginData.email]
