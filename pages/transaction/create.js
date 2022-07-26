@@ -15,7 +15,7 @@ function Create() {
     const router = useRouter()
 
     const [userId, setUserId] = useState('')
-    const [librarianId, setLibrarianId] = useState(user.user_id)
+    const [librarianId, setLibrarianId] = useState(user.librarian_id)
     const [bookIds, setBookIds] = useState([])
     const [transDate, setTransDate] = useState(new Date())
     const [expiredDate, setExpiredDate] = useState()
