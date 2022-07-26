@@ -1,8 +1,10 @@
 import { Router, useRouter } from 'next/router';
 import React, { useState } from 'react'
 import Modal from "react-modal";
+import { toast } from 'react-toastify';
 
 import formatDate from '../utils/date';
+import { editOneTransactionById, deleteOneTransactionById } from '../axios_api/transaction'
 
 Modal.setAppElement("#__next");
 
@@ -28,6 +30,51 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
 
     const toggleModal = () => {
         setIsOpen(!modalIsOpen)
+    }
+
+    const handleComplete = async () => {
+        const bookIds = []
+        if (bookList.length && bookList[0] !== null) {
+            bookIds = transaction.bookList.reduce((list, curr) => {
+                list = [...list, curr.book_id]
+                return list
+            }, [])
+        }
+
+        const transactionData = {
+                userId: transaction.user.user_id,
+                librarianId: transaction.librarian.librarian_id,
+                transDate: transaction.transDate,
+                expiredDate: transaction.expiredDate,
+                status: 'complete',
+                hasPenalty: transaction.hasPenalty,
+                penaltyDescription: transaction.penaltyDescription,
+                bookIds: bookIds
+            }
+        console.log(transactionData)
+        try {
+            const result = await editOneTransactionById(transactionId, transactionData)
+            if (result.status === 200) {
+                toast.success(result.data)
+                setTrigger(!trigger)
+            }
+            else toast.error(result.response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDelete = async () => {
+        try {
+            const result = await deleteOneTransactionById(transactionId)
+            if (result.status === 200) {
+                toast.success(result.data)
+                setTrigger(!trigger)
+            }
+            else toast.error(result.response.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const renderStatus = () => {
@@ -87,18 +134,21 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
                 <td className="text-center border">{penaltyDescription}</td>
                 <td className="text-center border w-1/4">
                     <button
-                        className="px-2 py-1 rounded bg-sky-500 w-24"
-                        onClick={() => toggleModal()}
+                        className="px-2 py-1 mr-1 rounded bg-sky-500 w-24"
+                        onClick={toggleModal}
                     >
                         More info
                     </button>
-                    <button className="px-2 py-1 mx-1 rounded bg-teal-500 w-24">
-                        Complete
-                    </button>
+                    {
+                        status === 'ongoing' &&
+                        <button className="px-2 py-1 mr-1 rounded bg-teal-500 w-24" onClick={handleComplete}>
+                            Complete
+                        </button>
+                    }
                     <button className="px-2 py-1 mr-1 rounded bg-green-500 w-24" onClick={() => router.push(`/transaction/${transactionId}/edit`)}>
                         Edit
                     </button>
-                    <button className="px-2 py-1 rounded bg-red-400 w-24">
+                    <button className="px-2 py-1 rounded bg-red-400 w-24" onClick={handleDelete}>
                         Delete
                     </button>
                 </td>

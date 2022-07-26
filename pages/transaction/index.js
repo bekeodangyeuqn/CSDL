@@ -12,7 +12,7 @@ function Transaction() {
 
   const getTransactions = async () => {
     const result = await getAllTransactions()
-    setTransaction(result)
+    setTransaction(result.data)
   }
 
   useEffect(() => {
@@ -21,12 +21,12 @@ function Transaction() {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, [trigger])
 
   return (
     <div className="px-8">
-      <div className="flex justify-between">
-        <p className="text-xl font-extrabold">Books</p>
+      <div className="flex justify-between mb-2">
+        <p className="text-xl font-extrabold">Transaction</p>
         <div className="flex justify-center ">
         <TransactionSearchBar></TransactionSearchBar>
         </div>
@@ -39,15 +39,15 @@ function Transaction() {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User</th>
-            <th>Librarian</th>
-            <th>Trans date</th>
-            <th>Expired date</th>
-            <th>Status</th>
-            <th>Penalty</th>
-            <th>Penalty description</th>
-            <th> </th>
+            <th className="border ">ID</th>
+            <th className="border">User</th>
+            <th className="border">Librarian</th>
+            <th className="border">Trans date</th>
+            <th className="border">Expired date</th>
+            <th className="border">Status</th>
+            <th className="border">Penalty</th>
+            <th className="border">Penalty description</th>
+            <th className="border"> </th>
           </tr>
         </thead>
         <tbody>
