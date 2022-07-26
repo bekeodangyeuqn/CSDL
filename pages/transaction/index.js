@@ -41,14 +41,13 @@ function Transaction() {
             <TransactionSearchBar></TransactionSearchBar>
           </div>
           {
-            user && (user.role != 'librarian' || user.role != 'admin') ?
-              <div></div>
-              :
+            (user && (user.role === 'librarian' || user.role === 'admin')) ?
               <Link href='transaction/create'>
                 <button className="px-2 py-1 rounded bg-sky-400 w-20">
                   Create
                 </button>
               </Link>
+              : <div></div>
           }
         </div>
         <table className="table-auto w-full">
