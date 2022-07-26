@@ -127,7 +127,7 @@ function Index() {
         </>
       ) : (
         // onClick={()=> {setUser(null); router.push('/')}}
-        <button onClick={logout}  >
+        <button href='/logout' onClick={()=> {setUser(null); router.push('/')}}>
           <div
             className={clsx(
               "relative",

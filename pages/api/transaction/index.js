@@ -23,7 +23,7 @@ export default async function transactionHandler(req, res) {
                 res.status(200).json(result.rows)
             } catch (error) {
                 console.log(error)
-                res.status(500).res.status(500).json("Something went wrong, try again!")
+                res.status(500).json("Something went wrong, try again!")
             }
             break
         case 'POST':

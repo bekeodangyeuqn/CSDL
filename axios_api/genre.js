@@ -13,35 +13,29 @@ export const getAllGenres = async () => {
 
 export const getOneGenreById = async (id) => {
     try {
-        const res = await axios.get(url + `${id}`, id)
+        const res = await axios.get(url + `/${id}`, id)
         return res.data
     } catch (error) {
         return error.response.data
     }
 }
 
-export const createOneGenre = async () => {
+export const createOneGenre = async (genre) => {
     try {
-        const res = await axios.post(url)
-        return res.data
+        const res = await axios.post(url, genre)
     } catch (error) {
         return error.response.data
     }
 }
 
-export const editOneGenreById = async (id) => {
+export const editOneGenreById = async (id, data) => {
     try {
-        const res = await axios.patch(url + `${id}`, id)
+        const res = await axios.patch(url + `/${id}`, data)
         return res.data
     } catch (error) {
         return error.response.data
     }
 }
 export const deleteOneGenreById = async (id) => {
-    try {
-        const res = await axios.delete(url + `${id}`, id)
-        return res.data
-    } catch (error) {
-        return error.response.data
-    }
+    return await axios.delete(url + `/${id}`, id)
 }

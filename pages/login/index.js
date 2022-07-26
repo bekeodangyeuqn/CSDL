@@ -32,10 +32,19 @@ function LoginForm() {
   const handleSubmit = async () => {
     try {
       const result = await login({ email, password, role })
-      setUser(result)
-      router.push('/')
+      if (result.status === 200) {
+        console.log(result)
+        setUser(result.data)
+        toast.success(result.data)
+        router.push('/')
+      } 
+      else {
+        toast.error(result.response.data)
+        console.log(result)
+      }
     } catch (error) {
-      toast.error(error.response.data)
+      console.log(error)
+      toast.error(error)
     }
   };
 

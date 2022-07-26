@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Link from "next/link";
 
 import { getAllBooks } from '../../axios_api/book'
+import { userContext } from '../../contexts/userProvider'
 
 import BookSeachbar from "../../components/BookSeachbar";
 import BookItem from "../../components/BookItem";
 
 
 function Book() {
+  const { user } = useContext(userContext)
 
   const [books, setBooks] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     const getBooks = async () => {
-      const data = await getAllBooks()
-      console.log(data)
-      setBooks(data);
+      const result = await getAllBooks()
+      console.log(result.data)
+      setBooks(result.data);
     }
 
     try {
@@ -23,40 +26,47 @@ function Book() {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, [trigger])
 
   return (
     <div className="px-8">
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-2">
         <p className="text-xl font-extrabold">Books</p>
         <div className="flex justify-center ">
           <BookSeachbar></BookSeachbar>
         </div>
-        <Link href='book/create'>
-          <button className="px-2 py-1 rounded bg-sky-400 w-20">
-            Create
-          </button>
-        </Link>
+        {
+          (user && (user.role === 'librarian' || user.role === 'admin')) ?
+            <Link href='book/create'>
+              <button className="px-2 py-1 rounded bg-sky-400 w-20">
+                Create
+              </button>
+            </Link>
+          : <div></div>
+        }
       </div>
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Book name</th>
-            <th>Genre</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Publish date</th>
-            <th>Import date</th>
-            <th>Borrowed times</th>
-            <th>Amount</th>
-            <th></th>
+            <th className="border">ID</th>
+            <th className="border">Image</th>
+            <th className="border">Book name</th>
+            <th className="border">Genre</th>
+            <th className="border">Author</th>
+            <th className="border">Publisher</th>
+            <th className="border">Publish date</th>
+            <th className="border">Import date</th>
+            <th className="border">Borrowed times</th>
+            <th className="border">Amount</th>
+            {
+              (user && (user.role === 'librarian' || user.role === 'admin')) &&
+              <th className="border"></th>
+            }
           </tr>
         </thead>
         <tbody>
           {books.map((book) => (
-            <BookItem book={book} key={book.bookId}></BookItem>
+            <BookItem book={book} key={book.bookId} trigger={trigger} setTrigger={setTrigger}></BookItem>
           ))}
         </tbody>
       </table>
