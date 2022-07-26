@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 
-import { getAllAuthors, createOneAuthor } from '../axios_api/author'
+import { getAllAuthors, createOneAuthor, deleteOneAuthorById } from '../axios_api/author'
 
 function AuthorSelector({ authorIds, setAuthorIds }) {
     const [selected, setSelected] = useState([])
@@ -10,17 +11,18 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
     const [hidden, setHidden] = useState(true)
     const [needReRender, setNeedReRender] = useState(false)
 
+    const getAuthors = async () => {
+        const authorsData = await getAllAuthors()
+        setAuthors(authorsData)
+    }
+
     useEffect(() => {
-        const getAuthors = async () => {
-            const authorsData = await getAllAuthors()
-            setAuthors(authorsData)
-        }
         try {
             getAuthors()
         } catch (error) {
             console.log(error)
         }
-    },[needReRender, authorIds])
+    }, [needReRender, authorIds])
 
     useEffect(() => {
         if (authorIds.length && authorIds[0] !== null && authors.length && authors[0] !== null) {
@@ -44,13 +46,27 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
         setAuthorIds([])
     }
 
+    const handleDelete = async (id) => {
+        try {
+            const result = await deleteOneAuthorById(id)
+            if (result.status == 200) {
+                toast.success(result.data)
+                setSelected([])
+                setAuthors([])
+                getAuthors()
+            } else console.log(result.response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleCreate = () => {
         const createAuthor = async () => {
             const result = createOneAuthor({
                 name: name,
                 nationality: nationality
             })
-        } 
+        }
         try {
             createAuthor()
             setName('')
@@ -84,13 +100,13 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         onFocus={() => setHidden(false)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/5 p-2.5" required placeholder='Name'/>
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/5 p-2.5" required placeholder='Name' />
                     <input
                         type="text"
                         value={nationality}
                         onChange={(e) => setNationality(e.target.value)}
                         onFocus={() => setHidden(false)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-2/5 p-2.5 " required placeholder='Nationality'/>
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-2/5 p-2.5 " required placeholder='Nationality' />
                 </div>
             </div>
 
@@ -117,10 +133,16 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
                     {authors && authors.map((author, index) => (
                         <div
                             key={index}
-                            onClick={() => handleSelect(author)}
                             onFocus={() => setHidden(false)}
-                            className='text-sm w-full p-1 cursor-pointer border-b'
-                        >{author.name}</div>
+                            className='text-sm w-full p-1 cursor-pointer border-b flex justify-between'
+                        >
+                            <div onClick={() => handleSelect(author)}>{author.name}</div>
+                            <div onClick={() => handleDelete(author.authorId)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </div>
+                        </div>
                     ))}
                     <div className='bg-white flex justify-center'>
                         <button className="px-2 mx-1 my-1 text-sm rounded-xl bg-gray-400" onClick={() => setHidden(true)}>

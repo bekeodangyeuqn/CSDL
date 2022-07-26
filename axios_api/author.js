@@ -13,7 +13,7 @@ export const getAllAuthors = async () => {
 
 export const getOneAuthorById = async (id) => {
     try {
-        const res = await axios.get(url + `${id}`, id)
+        const res = await axios.get(url + `/${id}`, id)
         return res.data
     } catch (error) {
         return error.response.data
@@ -29,19 +29,14 @@ export const createOneAuthor = async (author) => {
     }
 }
 
-export const editOneAuthorById = async (id) => {
+export const editOneAuthorById = async (data) => {
     try {
-        const res = await axios.patch(url + `${id}`, id)
+        const res = await axios.patch(url + `/${id}`, data)
         return res.data
     } catch (error) {
         return error.response.data
     }
 }
 export const deleteOneAuthorById = async (id) => {
-    try {
-        const res = await axios.delete(url + `${id}`, id)
-        return res.data
-    } catch (error) {
-        return error.response.data
-    }
+    return axios.delete(url + `/${id}`, id)
 }
