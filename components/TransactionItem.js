@@ -137,7 +137,7 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
                     >
                         More info
                     </button>
-                    {(user && (user.role != 'librarian' || user.role != 'admin')) ?
+                    {(user && (user.role === 'librarian' || user.role === 'admin')) ?
                         <>
                             {
                                 status === 'ongoing' &&

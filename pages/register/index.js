@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import {toast} from 'react-toastify'
 
 import formatDate from '../../utils/date'
 import {createOneUser} from '../../axios_api/user'
@@ -27,11 +28,11 @@ function Register() {
         try {
             const result = await axios.post('http://localhost:3000/api/user', userData)
             console.log(result)
-            alert(result.data)
+            toast.success(result.data)
             router.push('/login')
         } catch (error) {
             console.log(error)
-            alert(error.response.data)
+            toast.error(error.response.data)
         }
     }
 

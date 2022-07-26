@@ -60,7 +60,7 @@ function Book() {
             <th className="border">Borrowed times</th>
             <th className="border">Amount</th>
             {
-              (user && (user.role != 'librarian' || user.role != 'admin')) &&
+              (user && (user.role === 'librarian' || user.role === 'admin')) &&
               <th className="border"></th>
             }
           </tr>
