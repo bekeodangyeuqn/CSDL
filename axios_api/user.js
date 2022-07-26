@@ -1,7 +1,10 @@
 import axios from './axios';
 
-export const getAllUser = () => {
-    return axios.get('/api/user');
+export const getAllUser = (data) => {
+    console.log({ data })
+    return axios.get('/api/user', {
+        params: data
+    });
 }
 export const deleteUser = (id) => {
     return axios.delete(`/api/user/${id}`);

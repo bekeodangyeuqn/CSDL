@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { useRouter } from 'next/router'
-
-import {login} from '../../axios_api/login'
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import { login } from '../../axios_api/login'
 import { userContext } from "../../contexts/userProvider";
 import styles from "../../styles/Register.module.css";
 
@@ -35,7 +35,7 @@ function LoginForm() {
       setUser(result)
       router.push('/')
     } catch (error) {
-      console.log(error)
+      toast.error(error.response.data)
     }
   };
 

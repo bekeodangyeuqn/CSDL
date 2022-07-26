@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getUser, updateUser } from '../../axios_api/user';
 import { toast } from 'react-toastify';
 
-const UserForm = ({ user, onCancel }) => {
+const UserForm = ({ user, onCancel, onSuccess }) => {
     const [values, setValues] = useState({});
+    console.log(values)
     const getUserDetail = async () => {
         try {
             const response = await getUser(user.userId);
@@ -15,14 +16,13 @@ const UserForm = ({ user, onCancel }) => {
     useEffect(() => {
         getUserDetail();
     }, [])
+
     const onSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            console.log({ values })
-            const res = await updateUser(values);
+            await updateUser(values);
             toast.success('Update successFully!');
-            console.log(res)
         } catch (error) {
             toast.error('Update failed!');
 
@@ -30,8 +30,8 @@ const UserForm = ({ user, onCancel }) => {
         onCancel();
     }
     const setField = (fieldName, value) => {
-        values[fieldName] = value;
-        setValues(values);
+
+        setValues({ ...values, [fieldName]: value });
     }
     return (
         <div className="user-form relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -48,29 +48,29 @@ const UserForm = ({ user, onCancel }) => {
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">First name</label>
-                                                <input value={values.firstName} onChange={event => setField('firstName', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <input value={values.firstName || ''} onChange={event => setField('firstName', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">Last name</label>
-                                                <input value={values.lastName} onChange={event => setField('lastName', event.target.value)} type="text" name="last-name" id="last-name" autoComplete="family-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <input value={values.lastName || ''} onChange={event => setField('lastName', event.target.value)} type="text" name="last-name" id="last-name" autoComplete="family-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
 
                                         </div>
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">Email</label>
-                                                <input value={values.email} onChange={event => setField('email', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <input value={values.email || ''} onChange={event => setField('email', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">Address</label>
-                                                <input value={values.address} onChange={event => setField('address', event.target.value)} type="text" name="last-name" id="last-name" autoComplete="family-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <input value={values.address || ''} onChange={event => setField('address', event.target.value)} type="text" name="last-name" id="last-name" autoComplete="family-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
 
                                         </div>
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                                                <input value={values.tel} onChange={event => setField('tel', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <input value={values.tel || ''} onChange={event => setField('tel', event.target.value)} type="text" name="first-name" id="first-name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
 
                                         </div>
