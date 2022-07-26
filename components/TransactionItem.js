@@ -1,3 +1,4 @@
+import { Router, useRouter } from 'next/router';
 import React, { useState } from 'react'
 import Modal from "react-modal";
 
@@ -18,6 +19,8 @@ const customStyles = {
 };
 function TransactionItem({ transaction, trigger, setTrigger }) {
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    const router = useRouter()
 
     const {
         transactionId, transDate, expiredDate, status, hasPenalty, penaltyDescription, user, librarian, bookList
@@ -71,31 +74,31 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
                 </div>
             </Modal>
             <tr>
-                <td className="text-center">{transactionId}</td>
-                <td className="text-center">{`${user.first_name} ${user.last_name}`}</td>
-                <td className="text-center">{`${librarian.first_name} ${librarian.last_name}`}</td>
-                <td className="text-center">{formatDate(transDate)}</td>
-                <td className="text-center">{formatDate(expiredDate)}</td>
+                <td className="text-center border">{transactionId}</td>
+                <td className="text-center border">{`${user.first_name} ${user.last_name}`}</td>
+                <td className="text-center border">{`${librarian.first_name} ${librarian.last_name}`}</td>
+                <td className="text-center border">{formatDate(transDate)}</td>
+                <td className="text-center border">{formatDate(expiredDate)}</td>
                 {/* on going: 'ongoing', late: 'late', complete: 'complete' */}
-                <td className="text-center">
+                <td className="text-center border">
                     {renderStatus()}
                 </td>
-                <td className="text-center">{hasPenalty}</td>
-                <td className="text-center">{penaltyDescription}</td>
-                <td className="text-center">
+                <td className="text-center border">{hasPenalty ? 'Yes' : 'No'}</td>
+                <td className="text-center border">{penaltyDescription}</td>
+                <td className="text-center border w-1/4">
                     <button
-                        className="px-2 py-1 rounded bg-sky-500 w-20"
+                        className="px-2 py-1 rounded bg-sky-500 w-24"
                         onClick={() => toggleModal()}
                     >
-                        View
+                        More info
                     </button>
-                    <button className="px-2 py-1 mx-1 rounded bg-teal-500 w-20">
+                    <button className="px-2 py-1 mx-1 rounded bg-teal-500 w-24">
                         Complete
                     </button>
-                    <button className="px-2 py-1 mr-1 rounded bg-green-500 w-20">
+                    <button className="px-2 py-1 mr-1 rounded bg-green-500 w-24" onClick={() => router.push(`/transaction/${transactionId}/edit`)}>
                         Edit
                     </button>
-                    <button className="px-2 py-1 rounded bg-red-400 w-20">
+                    <button className="px-2 py-1 rounded bg-red-400 w-24">
                         Delete
                     </button>
                 </td>
