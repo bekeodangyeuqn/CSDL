@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import {getAllPublishers} from '../axios_api/publisher'
 
-function PublisherSelector( { setPublisherId } ) {
+function PublisherSelector( { publisherId, setPublisherId } ) {
     const [selected, setSelected] = useState()
     const [publishers, setPublishers] = useState()
 
@@ -17,6 +17,10 @@ function PublisherSelector( { setPublisherId } ) {
             console.log(error)
         }
     }, [])
+
+    useEffect(() => {
+        setSelected(publisherId ? publisherId : selected)
+    }, [publisherId])
 
     const handleChange = (e) => {
         setSelected(e.target.value)

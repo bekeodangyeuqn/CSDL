@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useRouter } from 'next/router'
+import {toast} from 'react-toastify'
 
 import { login } from '../../axios_api/login'
 import { userContext } from "../../contexts/userProvider";
@@ -35,15 +36,16 @@ function LoginForm() {
       if (result.status === 200) {
         console.log(result)
         setUser(result.data)
+        toast.success(result.data)
         router.push('/')
       } 
       else {
-        alert(result.response.data)
+        toast.error(result.response.data)
         console.log(result)
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+      toast.error(error)
     }
   };
 

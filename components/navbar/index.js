@@ -46,7 +46,6 @@ function Index() {
   const router = useRouter();
 
   const { user, setUser } = useContext(userContext);
-  console.log({ user });
   return (
     <div className="flex space-x-3 items-center justify-center ">
       {navLinks.map((item, index) => (
@@ -115,7 +114,7 @@ function Index() {
         </>
       ) : (
         // onClick={()=> {setUser(null); router.push('/')}}
-        <button href='/logout'>
+        <button href='/logout' onClick={()=> {setUser(null); router.push('/')}}>
           <div
             className={clsx(
               "relative",
