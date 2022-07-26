@@ -28,7 +28,7 @@ function Book() {
 
   return (
     <div className="px-8">
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-2">
         <p className="text-xl font-extrabold">Books</p>
         <div className="flex justify-center ">
           <BookSeachbar></BookSeachbar>
@@ -42,17 +42,17 @@ function Book() {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Book name</th>
-            <th>Genre</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>Publish date</th>
-            <th>Import date</th>
-            <th>Borrowed times</th>
-            <th>Amount</th>
-            <th></th>
+            <th className="border">ID</th>
+            <th className="border">Image</th>
+            <th className="border">Book name</th>
+            <th className="border">Genre</th>
+            <th className="border">Author</th>
+            <th className="border">Publisher</th>
+            <th className="border">Publish date</th>
+            <th className="border">Import date</th>
+            <th className="border">Borrowed times</th>
+            <th className="border">Amount</th>
+            <th className="border"></th>
           </tr>
         </thead>
         <tbody>

@@ -52,22 +52,22 @@ export default function BookItem({ book, trigger, setTrigger }) {
 
   return (
     <tr>
-      <td className="p-2 text-center border-r">{bookId}</td>
-      <td className="p-2 text-center w-14 h-14 border-r">
+      <td className="p-2 text-center border">{bookId}</td>
+      <td className="p-2 text-center w-14 h-14 border">
         <img src="https://cf.shopee.vn/file/7413a5737b1f8867950437c69921ad67"></img>
       </td>
-      <td className="p-2 text-center border-r">{name}</td>
-      <td className="p-2 text-center border-r">
+      <td className="p-2 text-center border">{name}</td>
+      <td className="p-2 text-center border">
         {renderGenre()}
       </td>
-      <td className="p-2 text-center border-r">
+      <td className="p-2 text-center border">
         {renderAuthor()}
       </td>
-      <td className="p-2 text-center border-r">{publisher.name}</td>
-      <td className="p-2 text-center border-r">{formatDate(publishDate)}</td>
-      <td className="p-2 text-center border-r">{formatDate(importDate)}</td>
-      <td className="p-2 text-center border-r">{borrowedTimes}</td>
-      <td className="p-2 text-center border-r">{quantity}</td>
+      <td className="p-2 text-center border">{publisher.name}</td>
+      <td className="p-2 text-center border">{formatDate(publishDate)}</td>
+      <td className="p-2 text-center border">{formatDate(importDate)}</td>
+      <td className="p-2 text-center border">{borrowedTimes}</td>
+      <td className="p-2 text-center border">{quantity}</td>
       <td className="p-2 text-center flex flex-col space-y-1">
         <button className="px-2 py-1 mr-2 rounded bg-green-500 w-20" onClick={handleEdit}>
           Edit

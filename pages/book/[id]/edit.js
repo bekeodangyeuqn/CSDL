@@ -30,14 +30,22 @@ function Edit() {
             }
 
             const rs = await getOneBookById(id)
-            const genresIdsList = rs.data[0].genresList.reduce((list, curr) => {
-                list = [...list, curr.genre_id]
-                return list
-            }, [])
-            const authorsIdList = rs.data[0].authorsList.reduce((list, curr) => {
-                list = [...list, curr.author_id]
-                return list
-            }, [])
+            const data = rs.data[0]
+            console.log(data.genresList, data.authorsList)
+            const genresIdsList = []
+            const authorsIdList = []
+            if(data.genresList.length && data.genresList[0] !== null) {
+                genresIdsList = rs.data[0].genresList.reduce((list, curr) => {
+                    list = [...list, curr.genre_id]
+                    return list
+                }, [])
+            }
+            if(data.authorsList.length && data.authorsList[0] !== null) {
+                authorsIdList = rs.data[0].authorsList.reduce((list, curr) => {
+                    list = [...list, curr.author_id]
+                    return list
+                }, [])
+            }
             setName(rs.data[0].name)
             setPublisherId(rs.data[0].publisher.publisher_id)
             setPublishDate(Date.parse(rs.data[0].publishDate))
@@ -70,6 +78,7 @@ function Edit() {
             const result = await editOneBookById(id, bookData)
             if (result.status === 200) {
                 toast.success(`Update book ${id} successfully!`)
+                router.push('/book')
             } else {
                 toast.error(`Update book ${id} failed!`)
             }
@@ -113,7 +122,6 @@ function Edit() {
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Import date</label>
                     <DatePicker
-                        dateFormat="yyyy/MM/dd"
                         selected={importDate}
                         onChange={(date) => setImportDate(date)}
                         dateFromat='YYYY-MM-dd'

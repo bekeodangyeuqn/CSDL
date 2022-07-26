@@ -23,7 +23,7 @@ function AuthorSelector({ authorIds, setAuthorIds }) {
     },[needReRender, authorIds])
 
     useEffect(() => {
-        if (authorIds) {
+        if (authorIds.length && authorIds[0] !== null && authors.length && authors[0] !== null) {
             const list = authorIds.reduce((list, id) => {
                 const index = authors.findIndex((author) => author.authorId === id)
                 return [...list, authors[index]]

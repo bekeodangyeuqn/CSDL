@@ -22,7 +22,7 @@ function GenreSelector({ genreIds, setGenreIds }) {
     }, [needReRender, genreIds])
 
     useEffect(() => {
-        if (genreIds) {
+        if (genreIds.length && genreIds[0] !== null && genres.length && genres[0] !== null) {
             const list = genreIds.reduce((list, id) => {
                 const index = genres.findIndex((genre) => genre.genreId === id)
                 return [...list, genres[index]]
