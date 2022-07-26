@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Link from "next/link";
 
 import { getAllBooks } from '../../axios_api/book'
+import { userContext } from '../../contexts/userProvider'
 
 import BookSeachbar from "../../components/BookSeachbar";
 import BookItem from "../../components/BookItem";
 
 
 function Book() {
+  const { user } = useContext(userContext)
 
   const [books, setBooks] = useState([]);
   const [trigger, setTrigger] = useState(false);
@@ -33,11 +35,16 @@ function Book() {
         <div className="flex justify-center ">
           <BookSeachbar></BookSeachbar>
         </div>
-        <Link href='book/create'>
-          <button className="px-2 py-1 rounded bg-sky-400 w-20">
-            Create
-          </button>
-        </Link>
+        {
+          (user && (user.role != 'librarian' || user.role != 'admin')) ?
+            <div></div>
+            :
+            <Link href='book/create'>
+              <button className="px-2 py-1 rounded bg-sky-400 w-20">
+                Create
+              </button>
+            </Link>
+        }
       </div>
       <table className="table-auto w-full">
         <thead>
@@ -52,7 +59,10 @@ function Book() {
             <th className="border">Import date</th>
             <th className="border">Borrowed times</th>
             <th className="border">Amount</th>
-            <th className="border"></th>
+            {
+              (user && (user.role != 'librarian' || user.role != 'admin')) &&
+              <th className="border"></th>
+            }
           </tr>
         </thead>
         <tbody>

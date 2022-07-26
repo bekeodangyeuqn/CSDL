@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
-import {deleteOneBookById} from '../axios_api/book'
+import { deleteOneBookById } from '../axios_api/book'
+import { userContext } from '../contexts/userProvider'
 import formatDate from "../utils/date";
 
 export default function BookItem({ book, trigger, setTrigger }) {
+  const { user } = useContext(userContext)
 
   const router = useRouter();
   const {
@@ -68,14 +70,18 @@ export default function BookItem({ book, trigger, setTrigger }) {
       <td className="p-2 text-center border">{formatDate(importDate)}</td>
       <td className="p-2 text-center border">{borrowedTimes}</td>
       <td className="p-2 text-center border">{quantity}</td>
-      <td className="p-2 text-center flex flex-col space-y-1">
-        <button className="px-2 py-1 mr-2 rounded bg-green-500 w-20" onClick={handleEdit}>
-          Edit
-        </button>
-        <button className="px-2 py-1 rounded bg-red-400 w-20" onClick={handleDelete}>
-          Delete
-        </button>
-      </td>
+      {
+        (user && (user.role != 'librarian' || user.role != 'admin')) &&
+        <td className="p-2 text-center flex flex-col space-y-1">
+          <button className="px-2 py-1 mr-2 rounded bg-green-500 w-20" onClick={handleEdit}>
+            Edit
+          </button>
+          <button className="px-2 py-1 rounded bg-red-400 w-20" onClick={handleDelete}>
+            Delete
+          </button>
+        </td>
+      }
+
     </tr>
   )
 }

@@ -1,9 +1,10 @@
-import { Router, useRouter } from 'next/router';
-import React, { useState } from 'react'
+import { useRouter } from 'next/router';
+import React, { useState, useContext } from 'react'
 import Modal from "react-modal";
 import { toast } from 'react-toastify';
 
 import formatDate from '../utils/date';
+import { userContext } from '../contexts/userProvider'
 import { editOneTransactionById, deleteOneTransactionById } from '../axios_api/transaction'
 
 Modal.setAppElement("#__next");
@@ -20,12 +21,14 @@ const customStyles = {
     },
 };
 function TransactionItem({ transaction, trigger, setTrigger }) {
+    const { user } = useContext(userContext)
+
     const [modalIsOpen, setIsOpen] = useState(false);
 
     const router = useRouter()
 
     const {
-        transactionId, transDate, expiredDate, status, hasPenalty, penaltyDescription, user, librarian, bookList
+        transactionId, transDate, expiredDate, status, hasPenalty, penaltyDescription, user: userTrans, librarian, bookList
     } = transaction
 
     const toggleModal = () => {
@@ -42,15 +45,15 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
         }
 
         const transactionData = {
-                userId: transaction.user.user_id,
-                librarianId: transaction.librarian.librarian_id,
-                transDate: transaction.transDate,
-                expiredDate: transaction.expiredDate,
-                status: 'complete',
-                hasPenalty: transaction.hasPenalty,
-                penaltyDescription: transaction.penaltyDescription,
-                bookIds: bookIds
-            }
+            userId: userTrans.user_id,
+            librarianId: librarian.librarian_id,
+            transDate: transDate,
+            expiredDate: expiredDate,
+            status: 'complete',
+            hasPenalty: hasPenalty,
+            penaltyDescription: penaltyDescription,
+            bookIds: bookIds
+        }
         console.log(transactionData)
         try {
             const result = await editOneTransactionById(transactionId, transactionData)
@@ -90,12 +93,6 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
         }
     }
 
-    const rende = () => {
-        bookList.length && bookList[0] !== null ? bookList.map((book, index) => (
-            <p key={index}>{book.name}</p>
-        )) : ''
-    }
-
     if (!transaction) {
         return 'loading...';
     }
@@ -122,7 +119,7 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
             </Modal>
             <tr>
                 <td className="text-center border">{transactionId}</td>
-                <td className="text-center border">{`${user.first_name} ${user.last_name}`}</td>
+                <td className="text-center border">{`${userTrans.first_name} ${userTrans.last_name}`}</td>
                 <td className="text-center border">{`${librarian.first_name} ${librarian.last_name}`}</td>
                 <td className="text-center border">{formatDate(transDate)}</td>
                 <td className="text-center border">{formatDate(expiredDate)}</td>
@@ -132,25 +129,32 @@ function TransactionItem({ transaction, trigger, setTrigger }) {
                 </td>
                 <td className="text-center border">{hasPenalty ? 'Yes' : 'No'}</td>
                 <td className="text-center border">{penaltyDescription}</td>
-                <td className="text-center border w-1/4">
+
+                <td className='text-center border w-1/4'>
                     <button
                         className="px-2 py-1 mr-1 rounded bg-sky-500 w-24"
                         onClick={toggleModal}
                     >
                         More info
                     </button>
-                    {
-                        status === 'ongoing' &&
-                        <button className="px-2 py-1 mr-1 rounded bg-teal-500 w-24" onClick={handleComplete}>
-                            Complete
-                        </button>
+                    {(user && (user.role != 'librarian' || user.role != 'admin')) ?
+                        <>
+                            {
+                                status === 'ongoing' &&
+                                <button className="px-2 py-1 mr-1 rounded bg-teal-500 w-24" onClick={handleComplete}>
+                                    Complete
+                                </button>
+                            }
+                            <button className="px-2 py-1 mr-1 rounded bg-green-500 w-24" onClick={() => router.push(`/transaction/${transactionId}/edit`)}>
+                                Edit
+                            </button>
+                            <button className="px-2 py-1 rounded bg-red-400 w-24" onClick={handleDelete}>
+                                Delete
+                            </button>
+                        </>
+                        :
+                        ''
                     }
-                    <button className="px-2 py-1 mr-1 rounded bg-green-500 w-24" onClick={() => router.push(`/transaction/${transactionId}/edit`)}>
-                        Edit
-                    </button>
-                    <button className="px-2 py-1 rounded bg-red-400 w-24" onClick={handleDelete}>
-                        Delete
-                    </button>
                 </td>
             </tr>
         </>
